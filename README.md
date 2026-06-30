@@ -180,34 +180,6 @@ Specialization:
 
 ---
 
-# 📊 GitHub Stats
-
-<p align="center">
-
-<img width="49%" src="https://github-readme-stats.vercel.app/api?username=surenderkumarrajput&show_icons=true&theme=github_dark&hide_border=true&include_all_commits=true&count_private=true"/>
-
-<img width="49%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=surenderkumarrajput&layout=compact&theme=github_dark&hide_border=true"/>
-
-</p>
-
-<p align="center">
-
-<img width="70%" src="https://streak-stats.demolab.com?user=surenderkumarrajput&theme=github-dark-blue&hide_border=true"/>
-
-</p>
-
----
-
-# 🏆 GitHub Activity
-
-<p align="center">
-
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=surenderkumarrajput&theme=github-dark&hide_border=true&area=true"/>
-
-</p>
-
----
-
 # 🌱 Currently Exploring
 
 - 🤖 AI Agents
@@ -227,13 +199,9 @@ Specialization:
 <img src="https://skillicons.dev/icons?i=linkedin"/>
 </a>
 
-&nbsp;&nbsp;
-
 <a href="mailto:surenderkumar2000kumar@gmail.com">
 <img src="https://skillicons.dev/icons?i=gmail"/>
 </a>
-
-&nbsp;&nbsp;
 
 <a href="https://github.com/surenderkumarrajput">
 <img src="https://skillicons.dev/icons?i=github"/>
