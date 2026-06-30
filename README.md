@@ -194,23 +194,9 @@ Specialization:
 # 🤝 Connect With Me
 
 <p align="center">
-
-<a href="https://www.linkedin.com/in/surender-kumar-0884541a2">
-<img src="https://skillicons.dev/icons?i=linkedin"/>
-</a>
-
-&nbsp;&nbsp;&nbsp;
-
-<a href="mailto:surenderkumar2000kumar@gmail.com">
-<img src="https://skillicons.dev/icons?i=gmail"/>
-</a>
-
-&nbsp;&nbsp;&nbsp;
-
-<a href="https://x.com/ItsSurenderK">
-  <img src="https://cdn.simpleicons.org/x/white" height="48" />
-</a>
-
+<a href="https://www.linkedin.com/in/surender-kumar-0884541a2"><img src="https://skillicons.dev/icons?i=linkedin" /></a>&nbsp;&nbsp;&nbsp;
+<a href="mailto:surenderkumar2000kumar@gmail.com"><img src="https://skillicons.dev/icons?i=gmail" /></a>&nbsp;&nbsp;&nbsp;
+<a href="https://x.com/ItsSurenderK"><img src="https://cdn.simpleicons.org/x/white" width="48" height="48" /></a>
 </p>
 
 ---
