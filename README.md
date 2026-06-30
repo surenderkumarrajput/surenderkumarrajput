@@ -198,13 +198,17 @@ Specialization:
 <a href="https://www.linkedin.com/in/surender-kumar-0884541a2">
 <img src="https://skillicons.dev/icons?i=linkedin"/>
 </a>
- &nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
 <a href="mailto:surenderkumar2000kumar@gmail.com">
 <img src="https://skillicons.dev/icons?i=gmail"/>
 </a>
- &nbsp;&nbsp;&nbsp;
-<a href="https://github.com/surenderkumarrajput">
-<img src="https://skillicons.dev/icons?i=github"/>
+
+&nbsp;&nbsp;&nbsp;
+
+<a href="https://x.com/ItsSurenderK">
+<img src="https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white"/>
 </a>
 
 </p>
