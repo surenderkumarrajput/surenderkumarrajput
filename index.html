@@ -1,1259 +1,1290 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Surender Kumar — XR & Full Stack Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+      :root {
+        --bg: #080b10;
+        --bg2: #0d121c;
+        --card: #10151f;
+        --line: rgba(231, 229, 223, 0.08);
+        --text: #e7e5df;
+        --muted: #8893a6;
+        --cyan: #5eead4;
+        --coral: #ff7a59;
+        --display: "Space Grotesk", sans-serif;
+        --mono: "IBM Plex Mono", monospace;
+        --body: "Inter", sans-serif;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Surender Kumar — XR & Full Stack Developer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap"
-    rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <style>
-    :root {
-      --bg: #080b10;
-      --bg2: #0d121c;
-      --card: #10151f;
-      --line: rgba(231, 229, 223, 0.08);
-      --text: #e7e5df;
-      --muted: #8893a6;
-      --cyan: #5eead4;
-      --coral: #ff7a59;
-      --display: "Space Grotesk", sans-serif;
-      --mono: "IBM Plex Mono", monospace;
-      --body: "Inter", sans-serif;
-    }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+      html {
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+      }
 
-    html {
-      scroll-behavior: smooth;
-      overflow-x: hidden;
-    }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--body);
+        overflow-x: hidden;
+      }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--body);
-      overflow-x: hidden;
-    }
+      ::selection {
+        background: var(--cyan);
+        color: #04110e;
+      }
 
-    ::selection {
-      background: var(--cyan);
-      color: #04110e;
-    }
-
-    /* ---------- nav ---------- */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 22px 5vw;
-      backdrop-filter: blur(10px);
-      background: linear-gradient(to bottom, rgba(8, 11, 16, 0.85), transparent);
-      font-family: var(--mono);
-      font-size: 13px;
-      letter-spacing: 0.04em;
-    }
-
-    nav .logo {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: 17px;
-      letter-spacing: 0.02em;
-      color: var(--text);
-    }
-
-    nav .logo span {
-      color: var(--cyan);
-    }
-
-    nav .links {
-      display: flex;
-      gap: 32px;
-    }
-
-    nav .links a {
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.25s;
-    }
-
-    nav .links a:hover {
-      color: var(--cyan);
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 26px;
-      height: 18px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      z-index: 150;
-    }
-
-    .menu-toggle span {
-      display: block;
-      width: 100%;
-      height: 2px;
-      background-color: var(--text);
-      transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
-    }
-
-    @media (max-width: 720px) {
-      .menu-toggle {
+      /* ---------- nav ---------- */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
         display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 22px 5vw;
+        backdrop-filter: blur(10px);
+        background: linear-gradient(to bottom, rgba(8, 11, 16, 0.85), transparent);
+        font-family: var(--mono);
+        font-size: 13px;
+        letter-spacing: 0.04em;
+      }
+
+      nav .logo {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 17px;
+        letter-spacing: 0.02em;
+        color: var(--text);
+      }
+
+      nav .logo span {
+        color: var(--cyan);
       }
 
       nav .links {
         display: flex;
-        flex-direction: column;
-        position: fixed;
-        top: 0;
-        right: -300px;
-        width: 280px;
-        height: 100vh;
-        background: rgba(13, 18, 28, 0.98);
-        backdrop-filter: blur(15px);
-        border-left: 1px solid var(--line);
-        padding: 120px 40px;
         gap: 32px;
-        transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        z-index: 140;
       }
 
       nav .links a {
-        font-size: 16px;
-        font-weight: 500;
-        letter-spacing: 0.05em;
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.25s;
       }
 
-      nav .links.active {
-        right: 0;
+      nav .links a:hover {
+        color: var(--cyan);
       }
 
-      .menu-toggle.active span:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-        background-color: var(--cyan);
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 16px;
       }
 
-      .menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-      }
-
-      .menu-toggle.active span:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-        background-color: var(--cyan);
-      }
-
-      .nav-right .socials {
+      .menu-toggle {
         display: none;
-      }
-
-      section {
-        padding: 80px 6vw;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .social-btn {
-        width: 38px;
-        height: 38px;
-      }
-
-      .social-btn svg {
-        width: 18px;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 26px;
         height: 18px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 150;
+      }
+
+      .menu-toggle span {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: var(--text);
+        transition:
+          transform 0.3s ease,
+          opacity 0.3s ease,
+          background-color 0.3s ease;
+      }
+
+      @media (max-width: 720px) {
+        .menu-toggle {
+          display: flex;
+        }
+
+        nav .links {
+          display: flex;
+          flex-direction: column;
+          position: fixed;
+          top: 0;
+          right: -300px;
+          width: 280px;
+          height: 100vh;
+          background: rgba(13, 18, 28, 0.98);
+          backdrop-filter: blur(15px);
+          border-left: 1px solid var(--line);
+          padding: 120px 40px;
+          gap: 32px;
+          transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+          z-index: 140;
+        }
+
+        nav .links a {
+          font-size: 16px;
+          font-weight: 500;
+          letter-spacing: 0.05em;
+        }
+
+        nav .links.active {
+          right: 0;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+          transform: translateY(8px) rotate(45deg);
+          background-color: var(--cyan);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+          opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+          transform: translateY(-8px) rotate(-45deg);
+          background-color: var(--cyan);
+        }
+
+        .nav-right .socials {
+          display: none;
+        }
+
+        section {
+          padding: 80px 6vw;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .social-btn {
+          width: 38px;
+          height: 38px;
+        }
+
+        .social-btn svg {
+          width: 18px;
+          height: 18px;
+        }
+
+        .hero-cta {
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .timeline {
+          padding-left: 24px;
+        }
+
+        .tl-item::before {
+          left: -30px;
+        }
+
+        footer {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 12px;
+        }
+      }
+
+      /* ---------- hero ---------- */
+      #hero {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      #hero-canvas {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        padding: 0 6vw;
+        pointer-events: none;
+      }
+
+      .eyebrow {
+        font-family: var(--mono);
+        color: var(--cyan);
+        font-size: 13px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        margin-bottom: 22px;
+        opacity: 0;
+        animation: rise 0.9s 0.15s forwards ease-out;
+      }
+
+      h1.hero-title {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: clamp(42px, 8vw, 108px);
+        line-height: 0.98;
+        letter-spacing: -0.02em;
+        opacity: 0;
+        animation: rise 1s 0.3s forwards ease-out;
+      }
+
+      h1.hero-title .grad {
+        background: linear-gradient(100deg, var(--cyan), var(--coral) 80%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hero-sub {
+        font-family: var(--body);
+        color: var(--muted);
+        font-size: clamp(15px, 1.8vw, 19px);
+        max-width: 620px;
+        margin: 26px auto 0;
+        line-height: 1.6;
+        opacity: 0;
+        animation: rise 1s 0.5s forwards ease-out;
       }
 
       .hero-cta {
-        flex-direction: column;
-        gap: 12px;
+        margin-top: 40px;
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        pointer-events: all;
+        opacity: 0;
+        animation: rise 1s 0.7s forwards ease-out;
       }
 
+      .btn {
+        font-family: var(--mono);
+        font-size: 13px;
+        letter-spacing: 0.04em;
+        padding: 14px 28px;
+        border-radius: 2px;
+        text-decoration: none;
+        border: 1px solid var(--line);
+        transition: all 0.25s;
+        display: inline-block;
+      }
+
+      .btn-primary {
+        background: var(--cyan);
+        color: #04110e;
+        border-color: var(--cyan);
+        font-weight: 600;
+      }
+
+      .btn-primary:hover {
+        background: #7ff4de;
+      }
+
+      .btn-ghost {
+        color: var(--text);
+      }
+
+      .btn-ghost:hover {
+        border-color: var(--cyan);
+        color: var(--cyan);
+      }
+
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .scroll-hint {
+        position: absolute;
+        bottom: 34px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--muted);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        opacity: 0.7;
+        z-index: 2;
+      }
+
+      .scroll-hint .line {
+        width: 1px;
+        height: 30px;
+        background: linear-gradient(var(--cyan), transparent);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.3;
+        }
+
+        50% {
+          opacity: 1;
+        }
+      }
+
+      /* ---------- section shared ---------- */
+      section {
+        padding: 140px 7vw;
+        position: relative;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: baseline;
+        gap: 18px;
+        margin-bottom: 64px;
+      }
+
+      .section-num {
+        font-family: var(--mono);
+        color: var(--coral);
+        font-size: 13px;
+      }
+
+      .section-title {
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: clamp(28px, 3.6vw, 44px);
+        letter-spacing: -0.01em;
+      }
+
+      .section-line {
+        flex: 1;
+        height: 1px;
+        background: var(--line);
+      }
+
+      /* ---------- about ---------- */
+      #about {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+
+      @media (max-width: 880px) {
+        #about {
+          grid-template-columns: 1fr;
+          gap: 48px;
+        }
+      }
+
+      .about-text p {
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.85;
+        margin-bottom: 18px;
+      }
+
+      .about-text strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      .stat-row {
+        display: flex;
+        gap: 40px;
+        margin-top: 38px;
+        flex-wrap: wrap;
+      }
+
+      .stat .n {
+        font-family: var(--display);
+        font-size: 36px;
+        font-weight: 700;
+        color: var(--cyan);
+      }
+
+      .stat .l {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--muted);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-top: 4px;
+      }
+
+      .photo-wrap {
+        position: relative;
+        justify-self: center;
+        width: min(360px, 80vw);
+      }
+
+      .photo-ring {
+        position: absolute;
+        inset: -18px;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        animation: spin 30s linear infinite;
+      }
+
+      .photo-ring::before {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: 50%;
+        width: 6px;
+        height: 6px;
+        background: var(--cyan);
+        border-radius: 50%;
+        box-shadow: 0 0 14px var(--cyan);
+        transform: translateX(-50%);
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .photo-frame {
+        width: 100%;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        position: relative;
+        box-shadow: 0 0 60px -10px rgba(94, 234, 212, 0.25);
+      }
+
+      .photo-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: saturate(0.95) contrast(1.03);
+      }
+
+      /* ---------- experience ---------- */
       .timeline {
-        padding-left: 24px;
+        position: relative;
+        border-left: 1px solid var(--line);
+        padding-left: 42px;
+      }
+
+      .tl-item {
+        position: relative;
+        padding-bottom: 64px;
+      }
+
+      .tl-item:last-child {
+        padding-bottom: 0;
       }
 
       .tl-item::before {
-        left: -30px;
+        content: "";
+        position: absolute;
+        left: -48px;
+        top: 4px;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: var(--bg);
+        border: 2px solid var(--cyan);
+      }
+
+      .tl-role {
+        font-family: var(--display);
+        font-size: 22px;
+        font-weight: 600;
+      }
+
+      .tl-meta {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--coral);
+        margin: 6px 0 18px;
+        letter-spacing: 0.03em;
+      }
+
+      .tl-item ul {
+        list-style: none;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.75;
+      }
+
+      .tl-item li {
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 10px;
+      }
+
+      .tl-item li::before {
+        content: "—";
+        position: absolute;
+        left: 0;
+        color: var(--cyan);
+        opacity: 0.6;
+      }
+
+      /* ---------- projects ---------- */
+      .proj-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+      }
+
+      .proj-card {
+        background: var(--card);
+        padding: 34px 30px;
+        transition: background 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .proj-card:hover {
+        background: #141a26;
+      }
+
+      .proj-card .tag {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--cyan);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .proj-card h3 {
+        font-family: var(--display);
+        font-size: 21px;
+        font-weight: 600;
+        margin: 14px 0 10px;
+      }
+
+      .proj-card p {
+        color: var(--muted);
+        font-size: 14.5px;
+        line-height: 1.65;
+      }
+
+      /* ---------- skills ---------- */
+      .skill-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 36px;
+      }
+
+      .skill-cat .cat-label {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--coral);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+      }
+
+      .chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .chip {
+        font-family: var(--mono);
+        font-size: 12.5px;
+        padding: 7px 13px;
+        border: 1px solid var(--line);
+        border-radius: 2px;
+        color: var(--text);
+        transition: all 0.25s;
+      }
+
+      .chip:hover {
+        border-color: var(--cyan);
+        color: var(--cyan);
+      }
+
+      /* ---------- education / links ---------- */
+      .edu-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 10px;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 24px;
+      }
+
+      .edu-row h3 {
+        font-family: var(--display);
+        font-size: 22px;
+        font-weight: 600;
+      }
+
+      .edu-row span {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      /* ---------- socials ---------- */
+      .socials {
+        display: flex;
+        gap: 14px;
+      }
+
+      .social-btn {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        color: var(--muted);
+        transition: all 0.25s;
+      }
+
+      .social-btn:hover {
+        border-color: var(--cyan);
+        color: var(--cyan);
+        transform: translateY(-2px);
+      }
+
+      .social-btn svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .contact-socials {
+        display: flex;
+        gap: 14px;
+        justify-content: center;
+      }
+
+      /* ---------- contact ---------- */
+      #contact {
+        text-align: center;
+        padding-bottom: 100px;
+      }
+
+      #contact .section-title {
+        font-size: clamp(34px, 5vw, 64px);
+        margin-bottom: 20px;
+      }
+
+      #contact p {
+        color: var(--muted);
+        max-width: 480px;
+        margin: 0 auto 40px;
+        line-height: 1.7;
+      }
+
+      .contact-links {
+        display: flex;
+        gap: 18px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 30px;
       }
 
       footer {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 12px;
+        border-top: 1px solid var(--line);
+        padding: 28px 7vw;
+        display: flex;
+        justify-content: space-between;
+        font-family: var(--mono);
+        font-size: 11.5px;
+        color: var(--muted);
+        letter-spacing: 0.04em;
+        flex-wrap: wrap;
+        gap: 10px;
       }
-    }
-
-    /* ---------- hero ---------- */
-    #hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    #hero-canvas {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-    }
-
-    .hero-inner {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 0 6vw;
-      pointer-events: none;
-    }
-
-    .eyebrow {
-      font-family: var(--mono);
-      color: var(--cyan);
-      font-size: 13px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      margin-bottom: 22px;
-      opacity: 0;
-      animation: rise 0.9s 0.15s forwards ease-out;
-    }
-
-    h1.hero-title {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: clamp(42px, 8vw, 108px);
-      line-height: 0.98;
-      letter-spacing: -0.02em;
-      opacity: 0;
-      animation: rise 1s 0.3s forwards ease-out;
-    }
-
-    h1.hero-title .grad {
-      background: linear-gradient(100deg, var(--cyan), var(--coral) 80%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero-sub {
-      font-family: var(--body);
-      color: var(--muted);
-      font-size: clamp(15px, 1.8vw, 19px);
-      max-width: 620px;
-      margin: 26px auto 0;
-      line-height: 1.6;
-      opacity: 0;
-      animation: rise 1s 0.5s forwards ease-out;
-    }
-
-    .hero-cta {
-      margin-top: 40px;
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      pointer-events: all;
-      opacity: 0;
-      animation: rise 1s 0.7s forwards ease-out;
-    }
-
-    .btn {
-      font-family: var(--mono);
-      font-size: 13px;
-      letter-spacing: 0.04em;
-      padding: 14px 28px;
-      border-radius: 2px;
-      text-decoration: none;
-      border: 1px solid var(--line);
-      transition: all 0.25s;
-      display: inline-block;
-    }
-
-    .btn-primary {
-      background: var(--cyan);
-      color: #04110e;
-      border-color: var(--cyan);
-      font-weight: 600;
-    }
-
-    .btn-primary:hover {
-      background: #7ff4de;
-    }
-
-    .btn-ghost {
-      color: var(--text);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--cyan);
-      color: var(--cyan);
-    }
-
-    @keyframes rise {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .scroll-hint {
-      position: absolute;
-      bottom: 34px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      opacity: 0.7;
-      z-index: 2;
-    }
-
-    .scroll-hint .line {
-      width: 1px;
-      height: 30px;
-      background: linear-gradient(var(--cyan), transparent);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-
-      0%,
-      100% {
-        opacity: 0.3;
-      }
-
-      50% {
-        opacity: 1;
-      }
-    }
-
-    /* ---------- section shared ---------- */
-    section {
-      padding: 140px 7vw;
-      position: relative;
-    }
-
-    .section-head {
-      display: flex;
-      align-items: baseline;
-      gap: 18px;
-      margin-bottom: 64px;
-    }
-
-    .section-num {
-      font-family: var(--mono);
-      color: var(--coral);
-      font-size: 13px;
-    }
-
-    .section-title {
-      font-family: var(--display);
-      font-weight: 600;
-      font-size: clamp(28px, 3.6vw, 44px);
-      letter-spacing: -0.01em;
-    }
-
-    .section-line {
-      flex: 1;
-      height: 1px;
-      background: var(--line);
-    }
-
-    /* ---------- about ---------- */
-    #about {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    @media (max-width: 880px) {
-      #about {
-        grid-template-columns: 1fr;
-        gap: 48px;
-      }
-    }
-
-    .about-text p {
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.85;
-      margin-bottom: 18px;
-    }
-
-    .about-text strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .stat-row {
-      display: flex;
-      gap: 40px;
-      margin-top: 38px;
-      flex-wrap: wrap;
-    }
-
-    .stat .n {
-      font-family: var(--display);
-      font-size: 36px;
-      font-weight: 700;
-      color: var(--cyan);
-    }
-
-    .stat .l {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-top: 4px;
-    }
-
-    .photo-wrap {
-      position: relative;
-      justify-self: center;
-      width: min(360px, 80vw);
-    }
-
-    .photo-ring {
-      position: absolute;
-      inset: -18px;
-      border: 1px solid var(--line);
-      border-radius: 50%;
-      animation: spin 30s linear infinite;
-    }
-
-    .photo-ring::before {
-      content: "";
-      position: absolute;
-      top: -2px;
-      left: 50%;
-      width: 6px;
-      height: 6px;
-      background: var(--cyan);
-      border-radius: 50%;
-      box-shadow: 0 0 14px var(--cyan);
-      transform: translateX(-50%);
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    .photo-frame {
-      width: 100%;
-      aspect-ratio: 1/1;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      position: relative;
-      box-shadow: 0 0 60px -10px rgba(94, 234, 212, 0.25);
-    }
-
-    .photo-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: saturate(0.95) contrast(1.03);
-    }
-
-    /* ---------- experience ---------- */
-    .timeline {
-      position: relative;
-      border-left: 1px solid var(--line);
-      padding-left: 42px;
-    }
-
-    .tl-item {
-      position: relative;
-      padding-bottom: 64px;
-    }
-
-    .tl-item:last-child {
-      padding-bottom: 0;
-    }
-
-    .tl-item::before {
-      content: "";
-      position: absolute;
-      left: -48px;
-      top: 4px;
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      background: var(--bg);
-      border: 2px solid var(--cyan);
-    }
-
-    .tl-role {
-      font-family: var(--display);
-      font-size: 22px;
-      font-weight: 600;
-    }
-
-    .tl-meta {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--coral);
-      margin: 6px 0 18px;
-      letter-spacing: 0.03em;
-    }
-
-    .tl-item ul {
-      list-style: none;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.75;
-    }
-
-    .tl-item li {
-      position: relative;
-      padding-left: 20px;
-      margin-bottom: 10px;
-    }
-
-    .tl-item li::before {
-      content: "—";
-      position: absolute;
-      left: 0;
-      color: var(--cyan);
-      opacity: 0.6;
-    }
-
-    /* ---------- projects ---------- */
-    .proj-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1px;
-      background: var(--line);
-      border: 1px solid var(--line);
-    }
-
-    .proj-card {
-      background: var(--card);
-      padding: 34px 30px;
-      transition: background 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .proj-card:hover {
-      background: #141a26;
-    }
-
-    .proj-card .tag {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--cyan);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .proj-card h3 {
-      font-family: var(--display);
-      font-size: 21px;
-      font-weight: 600;
-      margin: 14px 0 10px;
-    }
-
-    .proj-card p {
-      color: var(--muted);
-      font-size: 14.5px;
-      line-height: 1.65;
-    }
-
-    /* ---------- skills ---------- */
-    .skill-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 36px;
-    }
-
-    .skill-cat .cat-label {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--coral);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-
-    .chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .chip {
-      font-family: var(--mono);
-      font-size: 12.5px;
-      padding: 7px 13px;
-      border: 1px solid var(--line);
-      border-radius: 2px;
-      color: var(--text);
-      transition: all 0.25s;
-    }
-
-    .chip:hover {
-      border-color: var(--cyan);
-      color: var(--cyan);
-    }
-
-    /* ---------- education / links ---------- */
-    .edu-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 10px;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 24px;
-    }
-
-    .edu-row h3 {
-      font-family: var(--display);
-      font-size: 22px;
-      font-weight: 600;
-    }
-
-    .edu-row span {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    /* ---------- socials ---------- */
-    .socials {
-      display: flex;
-      gap: 14px;
-    }
-
-    .social-btn {
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--line);
-      border-radius: 50%;
-      color: var(--muted);
-      transition: all 0.25s;
-    }
-
-    .social-btn:hover {
-      border-color: var(--cyan);
-      color: var(--cyan);
-      transform: translateY(-2px);
-    }
-
-    .social-btn svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .contact-socials {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-    }
-
-    /* ---------- contact ---------- */
-    #contact {
-      text-align: center;
-      padding-bottom: 100px;
-    }
-
-    #contact .section-title {
-      font-size: clamp(34px, 5vw, 64px);
-      margin-bottom: 20px;
-    }
-
-    #contact p {
-      color: var(--muted);
-      max-width: 480px;
-      margin: 0 auto 40px;
-      line-height: 1.7;
-    }
-
-    .contact-links {
-      display: flex;
-      gap: 18px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 30px;
-    }
-
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 28px 7vw;
-      display: flex;
-      justify-content: space-between;
-      font-family: var(--mono);
-      font-size: 11.5px;
-      color: var(--muted);
-      letter-spacing: 0.04em;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-  </style>
-</head>
-
-<body>
-  <nav>
-    <div class="logo">SURENDER<span>.</span>DEV</div>
-    <div class="links" id="nav-links">
-      <a href="#about">About</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <div class="nav-right">
-      <div class="socials">
-        <a class="social-btn" href="https://www.linkedin.com/in/surender-kumar-0884541a2" target="_blank" rel="noopener"
-          aria-label="LinkedIn">
+    </style>
+  </head>
+
+  <body>
+    <nav>
+      <div class="logo">SURENDER<span>.</span>DEV</div>
+      <div class="links" id="nav-links">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="nav-right">
+        <div class="socials">
+          <a
+            class="social-btn"
+            href="https://www.linkedin.com/in/surender-kumar-0884541a2"
+            target="_blank"
+            rel="noopener"
+            aria-label="LinkedIn"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"
+              />
+            </svg>
+          </a>
+          <a
+            class="social-btn"
+            href="https://github.com/surenderkumarrajput"
+            target="_blank"
+            rel="noopener"
+            aria-label="GitHub"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2C6.48 2 2 6.58 2 12.18c0 4.49 2.87 8.3 6.84 9.64.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.46-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.27 2.75 1.05a9.3 9.3 0 0 1 2.5-.34c.85 0 1.71.12 2.5.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.18C22 6.58 17.52 2 12 2z"
+              />
+            </svg>
+          </a>
+          <a class="social-btn" href="https://x.com/ItsSurenderK" target="_blank" rel="noopener" aria-label="X">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M18.9 2H22l-7.6 8.68L23.3 22H16.7l-5.16-6.76L5.6 22H2.5l8.13-9.29L1.5 2h6.78l4.66 6.18L18.9 2zm-1.16 18h1.7L7.36 4h-1.8l12.18 16z"
+              />
+            </svg>
+          </a>
+          <a class="social-btn" href="mailto:surenderkumar2000kumar@gmail.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13zm2.2.5 7.8 5.9L19.8 6H4.2zM20 8.1l-7.5 5.7a1 1 0 0 1-1.2 0L4 8.1V18h16V8.1z"
+              />
+            </svg>
+          </a>
+        </div>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+
+    <section id="hero">
+      <canvas id="hero-canvas"></canvas>
+      <div class="hero-inner">
+        <div class="eyebrow">Full Stack, XR &amp; Game Developer — Gurgaon, India</div>
+        <h1 class="hero-title">Building worlds<br />you can <span class="grad">play in.</span></h1>
+        <p class="hero-sub">
+          5+ years shipping Unity &amp; Unreal games, AR/VR experiences, and real-time web metaverse platforms for
+          national-scale clients — from a VR tennis court at the Australian Open to a digital twin for CESC.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#projects">View the work</a>
+          <a class="btn btn-ghost" href="#contact">Get in touch</a>
+        </div>
+      </div>
+      <div class="scroll-hint">
+        <div class="line"></div>
+        Scroll
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="about-text">
+        <div class="section-head" style="margin-bottom: 36px">
+          <h2 class="section-title">About</h2>
+        </div>
+        <p>
+          I'm <strong>Surender Kumar</strong>, a Lead Full Stack &amp; XR Developer at XR Central, where I architect
+          <strong>production-grade metaverse platforms</strong> — real-time 3D worlds with avatar customisation,
+          multiplayer rooms, and content marketplaces, built on BabylonJS, ReactJS, and Socket.io.
+        </p>
+        <p>
+          My work spans <strong>WebXR for the National Payments Corporation of India</strong>, a digital-twin metaverse
+          for Calcutta Electric Supply Corporation, and AI-powered clinical training simulations using GPT APIs. I've
+          also shipped Unity VR experiences showcased at the <strong>Australian Open 2021</strong> and immersive
+          cultural installations at <strong>Mahakumbh 2025</strong>.
+        </p>
+        <div class="stat-row">
+          <div class="stat">
+            <div class="n">5+</div>
+            <div class="l">Years Experience</div>
+          </div>
+          <div class="stat">
+            <div class="n">300+</div>
+            <div class="l">Concurrent Users Served</div>
+          </div>
+          <div class="stat">
+            <div class="n">3</div>
+            <div class="l">National-Scale Clients</div>
+          </div>
+        </div>
+      </div>
+      <div class="photo-wrap">
+        <div class="photo-ring"></div>
+        <div class="photo-frame"><img src="photo.jpg" alt="Surender Kumar" /></div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="section-head">
+        <h2 class="section-title">Experience</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-role">Lead Full Stack &amp; XR Developer</div>
+          <div class="tl-meta">XR Central — Jan 2022 – Present</div>
+          <ul>
+            <li>
+              Architected Metaqube, a production-grade web Metaverse Platform with dynamic project creation, avatar
+              customisation, and a content library — BabylonJS for rendering, Socket.io for low-latency multiplayer.
+            </li>
+            <li>
+              Delivered an AI-powered conversation simulator for medical training, with session evaluation and scoring
+              powered by OpenAI APIs.
+            </li>
+            <li>Built and deployed a Metaverse digital twin for CESC, enabling virtual infrastructure walkthroughs.</li>
+            <li>
+              Engineered an online event platform hosting 300+ concurrent users with spatial audio and interactive
+              booths.
+            </li>
+            <li>Developed a no-install Web AR experience for NPCI using WebXR and BabylonJS.</li>
+            <li>Built Infratech, a React Native app for civil construction task and attendance tracking.</li>
+            <li>Delivered VR/AR/mobile showcases exhibited at Mahakumbh 2025 to thousands of visitors.</li>
+          </ul>
+        </div>
+        <div class="tl-item">
+          <div class="tl-role">Full Stack &amp; Game Developer Trainee</div>
+          <div class="tl-meta">XR Central — Jul 2021 – Jan 2022</div>
+          <ul>
+            <li>
+              Led end-to-end development of a Unity VR Tennis game officially showcased at the Australian Open 2021.
+            </li>
+            <li>Built multiple immersive 3D browser experiences in BabylonJS, pushing WebGL rendering performance.</li>
+          </ul>
+        </div>
+        <div class="tl-item">
+          <div class="tl-role">Game Developer Intern</div>
+          <div class="tl-meta">Vyomix Interactive — May 2021 – Jul 2021</div>
+          <ul>
+            <li>
+              Created an interactive 3D car configurator in Three.js with real-time colour, trim, and feature
+              customisation.
+            </li>
+          </ul>
+        </div>
+        <div class="tl-item">
+          <div class="tl-role">Game Developer Intern</div>
+          <div class="tl-meta">Sixpep — May 2020 – Jul 2020</div>
+          <ul>
+            <li>Contributed to a Unity Web3 game integrating Trillium crypto wallet and NFT-based in-game rewards.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-head">
+        <h2 class="section-title">Key Projects</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="proj-grid">
+        <div class="proj-card">
+          <div class="tag">Metaverse</div>
+          <h3>Metaqube</h3>
+          <p>
+            Full-stack web metaverse platform — BabylonJS, ReactJS, Socket.io, Firebase — with avatar customisation,
+            multiplayer rooms, and a content marketplace. Deployed on Google Cloud.
+          </p>
+        </div>
+        <div class="proj-card">
+          <div class="tag">AI / Healthcare</div>
+          <h3>AI Doctor-Patient Simulator</h3>
+          <p>
+            Real-time simulation where a doctor converses with an AI patient to practise clinical dialogue, powered by
+            OpenAI GPT APIs with automated session scoring.
+          </p>
+        </div>
+        <div class="proj-card">
+          <div class="tag">VR / Sport</div>
+          <h3>VR Tennis — Australian Open 2021</h3>
+          <p>
+            Multiplayer VR tennis in Unity with physics-accurate mechanics and a stadium environment, officially
+            showcased at the Australian Open.
+          </p>
+        </div>
+        <div class="proj-card">
+          <div class="tag">Digital Twin</div>
+          <h3>CESC Metaverse</h3>
+          <p>
+            Virtual environment for Calcutta Electric Supply Corporation enabling immersive digital walkthroughs of
+            operational infrastructure.
+          </p>
+        </div>
+        <div class="proj-card">
+          <div class="tag">Events</div>
+          <h3>300+ User Metaverse Event</h3>
+          <p>
+            Scalable event platform with spatial audio, interactive booths, and stable real-time synchronisation for
+            300+ simultaneous attendees.
+          </p>
+        </div>
+        <div class="proj-card">
+          <div class="tag">WebXR</div>
+          <h3>Web AR — NPCI</h3>
+          <p>
+            Browser-based AR experience for the National Payments Corporation of India using WebXR and BabylonJS — zero
+            app install required.
+          </p>
+        </div>
+        <div class="proj-card">
+          <div class="tag">Mobile</div>
+          <h3>Infratech</h3>
+          <p>
+            React Native field app for civil construction teams — task management, attendance logging, and daily site
+            progress reporting.
+          </p>
+        </div>
+        <div class="proj-card">
+          <div class="tag">Culture</div>
+          <h3>Mahakumbh 2025 XR Showcase</h3>
+          <p>
+            Suite of VR, AR, and mobile applications delivering immersive cultural experiences to thousands of on-site
+            visitors.
+          </p>
+        </div>
+        <div class="proj-card">
+          <div class="tag">Collaboration</div>
+          <h3>Ed-Tor</h3>
+          <p>
+            Real-time collaborative document editor built with ReactJS and Convex DB, supporting live multi-user
+            editing.
+          </p>
+        </div>
+        <div class="proj-card">
+          <div class="tag">Game Portfolio</div>
+          <h3>Base Defender / Vengeance / Realm</h3>
+          <p>
+            Personal game portfolio: a 2D platformer shooter in Unity, a 3D FPS, and a third-person action RPG — both
+            built in Unreal Engine 4.
+          </p>
+        </div>
+        <div class="proj-card">
+          <div class="tag">Mobile AR Game</div>
+          <h3>Animal Brawl</h3>
+          <p>
+            AR mobile game built in Unity with Google ARCore, overlaying interactive animal characters onto real-world
+            surfaces.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-head">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="skill-grid">
+        <div class="skill-cat">
+          <div class="cat-label">Frontend</div>
+          <div class="chip-row">
+            <span class="chip">ReactJS</span><span class="chip">NextJS</span><span class="chip">React Native</span
+            ><span class="chip">HTML5</span><span class="chip">CSS3</span>
+          </div>
+        </div>
+        <div class="skill-cat">
+          <div class="cat-label">Backend</div>
+          <div class="chip-row">
+            <span class="chip">NodeJS</span><span class="chip">ExpressJS</span><span class="chip">REST APIs</span
+            ><span class="chip">WebSockets</span>
+          </div>
+        </div>
+        <div class="skill-cat">
+          <div class="cat-label">XR &amp; Game Dev</div>
+          <div class="chip-row">
+            <span class="chip">Unity 3D / AR / VR</span><span class="chip">Unreal Engine 4</span
+            ><span class="chip">BabylonJS</span><span class="chip">ThreeJS</span><span class="chip">WebXR</span
+            ><span class="chip">Google ARCore</span>
+          </div>
+        </div>
+        <div class="skill-cat">
+          <div class="cat-label">AI Integration</div>
+          <div class="chip-row">
+            <span class="chip">OpenAI GPT APIs</span><span class="chip">Google Gemini</span
+            ><span class="chip">AI-driven NPC Systems</span>
+          </div>
+        </div>
+        <div class="skill-cat">
+          <div class="cat-label">Tools &amp; DevOps</div>
+          <div class="chip-row">
+            <span class="chip">Socket.io</span><span class="chip">Redux</span><span class="chip">WebRTC</span
+            ><span class="chip">Docker</span><span class="chip">Git</span>
+          </div>
+        </div>
+        <div class="skill-cat">
+          <div class="cat-label">Cloud, Auth &amp; DB</div>
+          <div class="chip-row">
+            <span class="chip">Firebase</span><span class="chip">Google Cloud</span><span class="chip">JWT</span
+            ><span class="chip">MongoDB</span><span class="chip">PostgreSQL</span><span class="chip">SQL</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="section-head">
+        <h2 class="section-title">Education</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="edu-row">
+        <div>
+          <h3>Bachelor of Technology — Computer Science</h3>
+          <span>The Northcap University, Gurgaon, Haryana</span>
+        </div>
+        <span>Mar 2018 – Mar 2022</span>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-head" style="justify-content: center">
+        <h2 class="section-title">Let's build something immersive</h2>
+      </div>
+      <p>
+        Open to roles and collaborations in XR, Game Development, metaverse platforms, and full-stack AI-driven
+        products.
+      </p>
+
+      <div class="contact-socials">
+        <a
+          class="social-btn"
+          href="https://www.linkedin.com/in/surender-kumar-0884541a2"
+          target="_blank"
+          rel="noopener"
+          aria-label="LinkedIn"
+        >
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path
-              d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z" />
+              d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"
+            />
           </svg>
         </a>
-        <a class="social-btn" href="https://github.com/surenderkumarrajput" target="_blank" rel="noopener"
-          aria-label="GitHub">
+        <a
+          class="social-btn"
+          href="https://github.com/surenderkumarrajput"
+          target="_blank"
+          rel="noopener"
+          aria-label="GitHub"
+        >
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path
-              d="M12 2C6.48 2 2 6.58 2 12.18c0 4.49 2.87 8.3 6.84 9.64.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.46-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.27 2.75 1.05a9.3 9.3 0 0 1 2.5-.34c.85 0 1.71.12 2.5.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.18C22 6.58 17.52 2 12 2z" />
+              d="M12 2C6.48 2 2 6.58 2 12.18c0 4.49 2.87 8.3 6.84 9.64.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.46-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.27 2.75 1.05a9.3 9.3 0 0 1 2.5-.34c.85 0 1.71.12 2.5.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.18C22 6.58 17.52 2 12 2z"
+            />
           </svg>
         </a>
         <a class="social-btn" href="https://x.com/ItsSurenderK" target="_blank" rel="noopener" aria-label="X">
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path
-              d="M18.9 2H22l-7.6 8.68L23.3 22H16.7l-5.16-6.76L5.6 22H2.5l8.13-9.29L1.5 2h6.78l4.66 6.18L18.9 2zm-1.16 18h1.7L7.36 4h-1.8l12.18 16z" />
+              d="M18.9 2H22l-7.6 8.68L23.3 22H16.7l-5.16-6.76L5.6 22H2.5l8.13-9.29L1.5 2h6.78l4.66 6.18L18.9 2zm-1.16 18h1.7L7.36 4h-1.8l12.18 16z"
+            />
           </svg>
         </a>
         <a class="social-btn" href="mailto:surenderkumar2000kumar@gmail.com" aria-label="Email">
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path
-              d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13zm2.2.5 7.8 5.9L19.8 6H4.2zM20 8.1l-7.5 5.7a1 1 0 0 1-1.2 0L4 8.1V18h16V8.1z" />
+              d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13zm2.2.5 7.8 5.9L19.8 6H4.2zM20 8.1l-7.5 5.7a1 1 0 0 1-1.2 0L4 8.1V18h16V8.1z"
+            />
           </svg>
         </a>
       </div>
-      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </nav>
+      <div class="contact-links">
+        <a class="btn btn-ghost" href="tel:+919315949604">+91-9315949604</a>
+      </div>
+    </section>
 
-  <section id="hero">
-    <canvas id="hero-canvas"></canvas>
-    <div class="hero-inner">
-      <div class="eyebrow">Full Stack, XR &amp; Game Developer — Gurgaon, India</div>
-      <h1 class="hero-title">Building worlds<br />you can <span class="grad">play in.</span></h1>
-      <p class="hero-sub">
-        4+ years shipping Unity &amp; Unreal games, AR/VR experiences, and real-time web metaverse platforms for
-        national-scale clients — from a VR tennis court at the Australian Open to a digital twin for CESC.
-      </p>
-      <div class="hero-cta">
-        <a class="btn btn-primary" href="#projects">View the work</a>
-        <a class="btn btn-ghost" href="#contact">Get in touch</a>
-      </div>
-    </div>
-    <div class="scroll-hint">
-      <div class="line"></div>
-      Scroll
-    </div>
-  </section>
+    <footer>
+      <span>© 2026 Surender Kumar</span>
+      <span>Gurgaon, Haryana, India</span>
+    </footer>
 
-  <section id="about">
-    <div class="about-text">
-      <div class="section-head" style="margin-bottom: 36px">
-        <h2 class="section-title">About</h2>
-      </div>
-      <p>
-        I'm <strong>Surender Kumar</strong>, a Lead Full Stack &amp; XR Developer at XR Central, where I architect
-        <strong>production-grade metaverse platforms</strong> — real-time 3D worlds with avatar customisation,
-        multiplayer rooms, and content marketplaces, built on BabylonJS, ReactJS, and Socket.io.
-      </p>
-      <p>
-        My work spans <strong>WebXR for the National Payments Corporation of India</strong>, a digital-twin metaverse
-        for Calcutta Electric Supply Corporation, and AI-powered clinical training simulations using GPT APIs. I've
-        also shipped Unity VR experiences showcased at the <strong>Australian Open 2021</strong> and immersive
-        cultural installations at <strong>Mahakumbh 2025</strong>.
-      </p>
-      <div class="stat-row">
-        <div class="stat">
-          <div class="n">4+</div>
-          <div class="l">Years Experience</div>
-        </div>
-        <div class="stat">
-          <div class="n">300+</div>
-          <div class="l">Concurrent Users Served</div>
-        </div>
-        <div class="stat">
-          <div class="n">3</div>
-          <div class="l">National-Scale Clients</div>
-        </div>
-      </div>
-    </div>
-    <div class="photo-wrap">
-      <div class="photo-ring"></div>
-      <div class="photo-frame"><img src="photo.jpg" alt="Surender Kumar" /></div>
-    </div>
-  </section>
+    <script>
+      // ---------- Three.js immersive hero: rotating particle network "portal" ----------
+      (function () {
+        const canvas = document.getElementById("hero-canvas");
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 26;
 
-  <section id="experience">
-    <div class="section-head">
-      <h2 class="section-title">Experience</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="timeline">
-      <div class="tl-item">
-        <div class="tl-role">Lead Full Stack &amp; XR Developer</div>
-        <div class="tl-meta">XR Central — Jan 2022 – Present</div>
-        <ul>
-          <li>
-            Architected Metaqube, a production-grade web Metaverse Platform with dynamic project creation, avatar
-            customisation, and a content library — BabylonJS for rendering, Socket.io for low-latency multiplayer.
-          </li>
-          <li>
-            Delivered an AI-powered conversation simulator for medical training, with session evaluation and scoring
-            powered by OpenAI APIs.
-          </li>
-          <li>Built and deployed a Metaverse digital twin for CESC, enabling virtual infrastructure walkthroughs.</li>
-          <li>
-            Engineered an online event platform hosting 300+ concurrent users with spatial audio and interactive
-            booths.
-          </li>
-          <li>Developed a no-install Web AR experience for NPCI using WebXR and BabylonJS.</li>
-          <li>Built Infratech, a React Native app for civil construction task and attendance tracking.</li>
-          <li>Delivered VR/AR/mobile showcases exhibited at Mahakumbh 2025 to thousands of visitors.</li>
-        </ul>
-      </div>
-      <div class="tl-item">
-        <div class="tl-role">Full Stack &amp; Game Developer Trainee</div>
-        <div class="tl-meta">XR Central — Jul 2021 – Jan 2022</div>
-        <ul>
-          <li>
-            Led end-to-end development of a Unity VR Tennis game officially showcased at the Australian Open 2021.
-          </li>
-          <li>Built multiple immersive 3D browser experiences in BabylonJS, pushing WebGL rendering performance.</li>
-        </ul>
-      </div>
-      <div class="tl-item">
-        <div class="tl-role">Game Developer Intern</div>
-        <div class="tl-meta">Vyomix Interactive — May 2021 – Jul 2021</div>
-        <ul>
-          <li>
-            Created an interactive 3D car configurator in Three.js with real-time colour, trim, and feature
-            customisation.
-          </li>
-        </ul>
-      </div>
-      <div class="tl-item">
-        <div class="tl-role">Game Developer Intern</div>
-        <div class="tl-meta">Sixpep — May 2020 – Jul 2020</div>
-        <ul>
-          <li>Contributed to a Unity Web3 game integrating Trillium crypto wallet and NFT-based in-game rewards.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section id="projects">
-    <div class="section-head">
-      <h2 class="section-title">Key Projects</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="proj-grid">
-      <div class="proj-card">
-        <div class="tag">Metaverse</div>
-        <h3>Metaqube</h3>
-        <p>
-          Full-stack web metaverse platform — BabylonJS, ReactJS, Socket.io, Firebase — with avatar customisation,
-          multiplayer rooms, and a content marketplace. Deployed on Google Cloud.
-        </p>
-      </div>
-      <div class="proj-card">
-        <div class="tag">AI / Healthcare</div>
-        <h3>AI Doctor-Patient Simulator</h3>
-        <p>
-          Real-time simulation where a doctor converses with an AI patient to practise clinical dialogue, powered by
-          OpenAI GPT APIs with automated session scoring.
-        </p>
-      </div>
-      <div class="proj-card">
-        <div class="tag">VR / Sport</div>
-        <h3>VR Tennis — Australian Open 2021</h3>
-        <p>
-          Multiplayer VR tennis in Unity with physics-accurate mechanics and a stadium environment, officially
-          showcased at the Australian Open.
-        </p>
-      </div>
-      <div class="proj-card">
-        <div class="tag">Digital Twin</div>
-        <h3>CESC Metaverse</h3>
-        <p>
-          Virtual environment for Calcutta Electric Supply Corporation enabling immersive digital walkthroughs of
-          operational infrastructure.
-        </p>
-      </div>
-      <div class="proj-card">
-        <div class="tag">Events</div>
-        <h3>300+ User Metaverse Event</h3>
-        <p>
-          Scalable event platform with spatial audio, interactive booths, and stable real-time synchronisation for
-          300+ simultaneous attendees.
-        </p>
-      </div>
-      <div class="proj-card">
-        <div class="tag">WebXR</div>
-        <h3>Web AR — NPCI</h3>
-        <p>
-          Browser-based AR experience for the National Payments Corporation of India using WebXR and BabylonJS — zero
-          app install required.
-        </p>
-      </div>
-      <div class="proj-card">
-        <div class="tag">Mobile</div>
-        <h3>Infratech</h3>
-        <p>
-          React Native field app for civil construction teams — task management, attendance logging, and daily site
-          progress reporting.
-        </p>
-      </div>
-      <div class="proj-card">
-        <div class="tag">Culture</div>
-        <h3>Mahakumbh 2025 XR Showcase</h3>
-        <p>
-          Suite of VR, AR, and mobile applications delivering immersive cultural experiences to thousands of on-site
-          visitors.
-        </p>
-      </div>
-      <div class="proj-card">
-        <div class="tag">Collaboration</div>
-        <h3>Ed-Tor</h3>
-        <p>
-          Real-time collaborative document editor built with ReactJS and Convex DB, supporting live multi-user
-          editing.
-        </p>
-      </div>
-      <div class="proj-card">
-        <div class="tag">Game Portfolio</div>
-        <h3>Base Defender / Vengeance / Realm</h3>
-        <p>
-          Personal game portfolio: a 2D platformer shooter in Unity, a 3D FPS, and a third-person action RPG — both
-          built in Unreal Engine 4.
-        </p>
-      </div>
-      <div class="proj-card">
-        <div class="tag">Mobile AR Game</div>
-        <h3>Animal Brawl</h3>
-        <p>
-          AR mobile game built in Unity with Google ARCore, overlaying interactive animal characters onto real-world
-          surfaces.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section id="skills">
-    <div class="section-head">
-      <h2 class="section-title">Technical Skills</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="skill-grid">
-      <div class="skill-cat">
-        <div class="cat-label">Frontend</div>
-        <div class="chip-row">
-          <span class="chip">ReactJS</span><span class="chip">NextJS</span><span class="chip">React Native</span><span
-            class="chip">HTML5</span><span class="chip">CSS3</span>
-        </div>
-      </div>
-      <div class="skill-cat">
-        <div class="cat-label">Backend</div>
-        <div class="chip-row">
-          <span class="chip">NodeJS</span><span class="chip">ExpressJS</span><span class="chip">REST APIs</span><span
-            class="chip">WebSockets</span>
-        </div>
-      </div>
-      <div class="skill-cat">
-        <div class="cat-label">XR &amp; Game Dev</div>
-        <div class="chip-row">
-          <span class="chip">Unity 3D / AR / VR</span><span class="chip">Unreal Engine 4</span><span
-            class="chip">BabylonJS</span><span class="chip">ThreeJS</span><span class="chip">WebXR</span><span
-            class="chip">Google ARCore</span>
-        </div>
-      </div>
-      <div class="skill-cat">
-        <div class="cat-label">AI Integration</div>
-        <div class="chip-row">
-          <span class="chip">OpenAI GPT APIs</span><span class="chip">Google Gemini</span><span class="chip">AI-driven
-            NPC Systems</span>
-        </div>
-      </div>
-      <div class="skill-cat">
-        <div class="cat-label">Tools &amp; DevOps</div>
-        <div class="chip-row">
-          <span class="chip">Socket.io</span><span class="chip">Redux</span><span class="chip">WebRTC</span><span
-            class="chip">Docker</span><span class="chip">Git</span>
-        </div>
-      </div>
-      <div class="skill-cat">
-        <div class="cat-label">Cloud, Auth &amp; DB</div>
-        <div class="chip-row">
-          <span class="chip">Firebase</span><span class="chip">Google Cloud</span><span class="chip">JWT</span><span
-            class="chip">MongoDB</span><span class="chip">PostgreSQL</span><span class="chip">SQL</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="education">
-    <div class="section-head">
-      <h2 class="section-title">Education</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="edu-row">
-      <div>
-        <h3>Bachelor of Technology — Computer Science</h3>
-        <span>The Northcap University, Gurgaon, Haryana</span>
-      </div>
-      <span>Mar 2018 – Mar 2022</span>
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="section-head" style="justify-content: center">
-      <h2 class="section-title">Let's build something immersive</h2>
-    </div>
-    <p>Open to roles and collaborations in XR, Game Development, metaverse platforms, and full-stack AI-driven products.
-    </p>
-
-    <div class="contact-socials">
-      <a class="social-btn" href="https://www.linkedin.com/in/surender-kumar-0884541a2" target="_blank" rel="noopener"
-        aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z" />
-        </svg>
-      </a>
-      <a class="social-btn" href="https://github.com/surenderkumarrajput" target="_blank" rel="noopener"
-        aria-label="GitHub">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M12 2C6.48 2 2 6.58 2 12.18c0 4.49 2.87 8.3 6.84 9.64.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.46-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.27 2.75 1.05a9.3 9.3 0 0 1 2.5-.34c.85 0 1.71.12 2.5.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.18C22 6.58 17.52 2 12 2z" />
-        </svg>
-      </a>
-      <a class="social-btn" href="https://x.com/ItsSurenderK" target="_blank" rel="noopener" aria-label="X">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M18.9 2H22l-7.6 8.68L23.3 22H16.7l-5.16-6.76L5.6 22H2.5l8.13-9.29L1.5 2h6.78l4.66 6.18L18.9 2zm-1.16 18h1.7L7.36 4h-1.8l12.18 16z" />
-        </svg>
-      </a>
-      <a class="social-btn" href="mailto:surenderkumar2000kumar@gmail.com" aria-label="Email">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13zm2.2.5 7.8 5.9L19.8 6H4.2zM20 8.1l-7.5 5.7a1 1 0 0 1-1.2 0L4 8.1V18h16V8.1z" />
-        </svg>
-      </a>
-    </div>
-    <div class="contact-links">
-      <a class="btn btn-ghost" href="tel:+919315949604">+91-9315949604</a>
-    </div>
-  </section>
-
-  <footer>
-    <span>© 2026 Surender Kumar</span>
-    <span>Gurgaon, Haryana, India</span>
-  </footer>
-
-  <script>
-    // ---------- Three.js immersive hero: rotating particle network "portal" ----------
-    (function () {
-      const canvas = document.getElementById("hero-canvas");
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-      camera.position.z = 26;
-
-      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.setSize(window.innerWidth, window.innerHeight);
-
-      const group = new THREE.Group();
-      scene.add(group);
-
-      // Icosphere wireframe "portal core"
-      const coreGeo = new THREE.IcosahedronGeometry(7, 1);
-      const coreMat = new THREE.MeshBasicMaterial({
-        color: 0x5eead4,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.35,
-      });
-      const core = new THREE.Mesh(coreGeo, coreMat);
-      group.add(core);
-
-      const coreGeo2 = new THREE.IcosahedronGeometry(9.5, 0);
-      const coreMat2 = new THREE.MeshBasicMaterial({
-        color: 0xff7a59,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.12,
-      });
-      const core2 = new THREE.Mesh(coreGeo2, coreMat2);
-      group.add(core2);
-
-      // Particle field of nodes orbiting (the "network")
-      const PARTICLES = 220;
-      const positions = new Float32Array(PARTICLES * 3);
-      const radii = [];
-      for (let i = 0; i < PARTICLES; i++) {
-        const r = 11 + Math.random() * 9;
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos(Math.random() * 2 - 1);
-        positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-        positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-        positions[i * 3 + 2] = r * Math.cos(phi);
-        radii.push(r);
-      }
-      const pGeo = new THREE.BufferGeometry();
-      pGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-      const pMat = new THREE.PointsMaterial({ color: 0xe7e5df, size: 0.18, transparent: true, opacity: 0.75 });
-      const points = new THREE.Points(pGeo, pMat);
-      group.add(points);
-
-      // sparse connecting lines between nearby particles (network feel)
-      const lineGeoPts = [];
-      for (let i = 0; i < PARTICLES; i += 1) {
-        if (Math.random() > 0.92) {
-          const j = (i + 1 + Math.floor(Math.random() * 40)) % PARTICLES;
-          lineGeoPts.push(
-            new THREE.Vector3(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2]),
-            new THREE.Vector3(positions[j * 3], positions[j * 3 + 1], positions[j * 3 + 2]),
-          );
-        }
-      }
-      const lineGeo = new THREE.BufferGeometry().setFromPoints(lineGeoPts);
-      const lineMat = new THREE.LineBasicMaterial({ color: 0x5eead4, transparent: true, opacity: 0.18 });
-      const lines = new THREE.LineSegments(lineGeo, lineMat);
-      group.add(lines);
-
-      // mouse interaction: tilt the whole group toward cursor
-      let targetX = 0,
-        targetY = 0;
-      let mouseX = 0,
-        mouseY = 0;
-      window.addEventListener("mousemove", (e) => {
-        mouseX = e.clientX / window.innerWidth - 0.5;
-        mouseY = e.clientY / window.innerHeight - 0.5;
-      });
-      window.addEventListener("touchmove", (e) => {
-        if (e.touches[0]) {
-          mouseX = e.touches[0].clientX / window.innerWidth - 0.5;
-          mouseY = e.touches[0].clientY / window.innerHeight - 0.5;
-        }
-      });
-
-      function resize() {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.setSize(window.innerWidth, window.innerHeight);
-      }
-      window.addEventListener("resize", resize);
 
-      let t = 0;
-      function animate() {
-        requestAnimationFrame(animate);
-        t += 0.0035;
+        const group = new THREE.Group();
+        scene.add(group);
 
-        targetX += (mouseX - targetX) * 0.04;
-        targetY += (mouseY - targetY) * 0.04;
+        // Icosphere wireframe "portal core"
+        const coreGeo = new THREE.IcosahedronGeometry(7, 1);
+        const coreMat = new THREE.MeshBasicMaterial({
+          color: 0x5eead4,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.35,
+        });
+        const core = new THREE.Mesh(coreGeo, coreMat);
+        group.add(core);
 
-        group.rotation.y = t + targetX * 0.8;
-        group.rotation.x = targetY * 0.5 + Math.sin(t * 0.6) * 0.05;
+        const coreGeo2 = new THREE.IcosahedronGeometry(9.5, 0);
+        const coreMat2 = new THREE.MeshBasicMaterial({
+          color: 0xff7a59,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.12,
+        });
+        const core2 = new THREE.Mesh(coreGeo2, coreMat2);
+        group.add(core2);
 
-        core.rotation.y -= 0.0015;
-        core2.rotation.y += 0.001;
-        points.rotation.y += 0.0006;
+        // Particle field of nodes orbiting (the "network")
+        const PARTICLES = 220;
+        const positions = new Float32Array(PARTICLES * 3);
+        const radii = [];
+        for (let i = 0; i < PARTICLES; i++) {
+          const r = 11 + Math.random() * 9;
+          const theta = Math.random() * Math.PI * 2;
+          const phi = Math.acos(Math.random() * 2 - 1);
+          positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+          positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+          positions[i * 3 + 2] = r * Math.cos(phi);
+          radii.push(r);
+        }
+        const pGeo = new THREE.BufferGeometry();
+        pGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+        const pMat = new THREE.PointsMaterial({ color: 0xe7e5df, size: 0.18, transparent: true, opacity: 0.75 });
+        const points = new THREE.Points(pGeo, pMat);
+        group.add(points);
 
-        renderer.render(scene, camera);
-      }
-      animate();
-    })();
+        // sparse connecting lines between nearby particles (network feel)
+        const lineGeoPts = [];
+        for (let i = 0; i < PARTICLES; i += 1) {
+          if (Math.random() > 0.92) {
+            const j = (i + 1 + Math.floor(Math.random() * 40)) % PARTICLES;
+            lineGeoPts.push(
+              new THREE.Vector3(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2]),
+              new THREE.Vector3(positions[j * 3], positions[j * 3 + 1], positions[j * 3 + 2]),
+            );
+          }
+        }
+        const lineGeo = new THREE.BufferGeometry().setFromPoints(lineGeoPts);
+        const lineMat = new THREE.LineBasicMaterial({ color: 0x5eead4, transparent: true, opacity: 0.18 });
+        const lines = new THREE.LineSegments(lineGeo, lineMat);
+        group.add(lines);
 
-    // ---------- scroll reveal for sections ----------
-    const revealEls = document.querySelectorAll(".tl-item, .proj-card, .skill-cat, .edu-row");
-    revealEls.forEach((el) => {
-      el.style.opacity = 0;
-      el.style.transform = "translateY(24px)";
-      el.style.transition = "opacity .7s ease, transform .7s ease";
-    });
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = 1;
-            entry.target.style.transform = "translateY(0)";
-            io.unobserve(entry.target);
+        // mouse interaction: tilt the whole group toward cursor
+        let targetX = 0,
+          targetY = 0;
+        let mouseX = 0,
+          mouseY = 0;
+        window.addEventListener("mousemove", (e) => {
+          mouseX = e.clientX / window.innerWidth - 0.5;
+          mouseY = e.clientY / window.innerHeight - 0.5;
+        });
+        window.addEventListener("touchmove", (e) => {
+          if (e.touches[0]) {
+            mouseX = e.touches[0].clientX / window.innerWidth - 0.5;
+            mouseY = e.touches[0].clientY / window.innerHeight - 0.5;
           }
         });
-      },
-      { threshold: 0.15 },
-    );
-    revealEls.forEach((el) => io.observe(el));
-    // ---------- mobile menu toggle ----------
-    const menuToggle = document.getElementById("menu-toggle");
-    const navLinks = document.getElementById("nav-links");
-    if (menuToggle && navLinks) {
-      menuToggle.addEventListener("click", () => {
-        menuToggle.classList.toggle("active");
-        navLinks.classList.toggle("active");
-      });
-      navLinks.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-          menuToggle.classList.remove("active");
-          navLinks.classList.remove("active");
-        });
-      });
-    }
-  </script>
-</body>
 
+        function resize() {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+        window.addEventListener("resize", resize);
+
+        let t = 0;
+        function animate() {
+          requestAnimationFrame(animate);
+          t += 0.0035;
+
+          targetX += (mouseX - targetX) * 0.04;
+          targetY += (mouseY - targetY) * 0.04;
+
+          group.rotation.y = t + targetX * 0.8;
+          group.rotation.x = targetY * 0.5 + Math.sin(t * 0.6) * 0.05;
+
+          core.rotation.y -= 0.0015;
+          core2.rotation.y += 0.001;
+          points.rotation.y += 0.0006;
+
+          renderer.render(scene, camera);
+        }
+        animate();
+      })();
+
+      // ---------- scroll reveal for sections ----------
+      const revealEls = document.querySelectorAll(".tl-item, .proj-card, .skill-cat, .edu-row");
+      revealEls.forEach((el) => {
+        el.style.opacity = 0;
+        el.style.transform = "translateY(24px)";
+        el.style.transition = "opacity .7s ease, transform .7s ease";
+      });
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = 1;
+              entry.target.style.transform = "translateY(0)";
+              io.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 },
+      );
+      revealEls.forEach((el) => io.observe(el));
+      // ---------- mobile menu toggle ----------
+      const menuToggle = document.getElementById("menu-toggle");
+      const navLinks = document.getElementById("nav-links");
+      if (menuToggle && navLinks) {
+        menuToggle.addEventListener("click", () => {
+          menuToggle.classList.toggle("active");
+          navLinks.classList.toggle("active");
+        });
+        navLinks.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            menuToggle.classList.remove("active");
+            navLinks.classList.remove("active");
+          });
+        });
+      }
+    </script>
+  </body>
 </html>
