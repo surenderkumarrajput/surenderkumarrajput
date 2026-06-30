@@ -6,20 +6,20 @@
 
 <img src="https://readme-typing-svg.demolab.com?font=Poppins&weight=600&size=26&pause=1000&color=3B82F6&center=true&vCenter=true&width=900&lines=Lead+Full+Stack+Developer;Game+Developer;Unreal+Engine+Developer;Unity+Developer;XR+%7C+AR+%7C+VR+Engineer;AI+Powered+Applications;Cloud+Native+Systems;Always+Learning+Something+New" />
 
-<p>
+<p align="center">
 
 <a href="https://www.linkedin.com/in/surender-kumar-0884541a2">
 <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/>
 </a>
-
+ &nbsp;&nbsp;&nbsp;
 <a href="mailto:surenderkumar2000kumar@gmail.com">
 <img src="https://img.shields.io/badge/Gmail-EA4335?style=for-the-badge&logo=gmail&logoColor=white"/>
 </a>
-
+ &nbsp;&nbsp;&nbsp;
 <a href="https://github.com/surenderkumarrajput">
 <img src="https://img.shields.io/github/followers/surenderkumarrajput?style=for-the-badge&label=Followers"/>
 </a>
-
+ &nbsp;&nbsp;&nbsp;
 <img src="https://komarev.com/ghpvc/?username=surenderkumarrajput&style=for-the-badge&color=blue"/>
 
 </p>
@@ -198,11 +198,11 @@ Specialization:
 <a href="https://www.linkedin.com/in/surender-kumar-0884541a2">
 <img src="https://skillicons.dev/icons?i=linkedin"/>
 </a>
-
+ &nbsp;&nbsp;&nbsp;
 <a href="mailto:surenderkumar2000kumar@gmail.com">
 <img src="https://skillicons.dev/icons?i=gmail"/>
 </a>
-
+ &nbsp;&nbsp;&nbsp;
 <a href="https://github.com/surenderkumarrajput">
 <img src="https://skillicons.dev/icons?i=github"/>
 </a>
